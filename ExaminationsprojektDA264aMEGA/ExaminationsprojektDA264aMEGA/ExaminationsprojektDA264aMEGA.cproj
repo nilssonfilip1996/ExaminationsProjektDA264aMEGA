@@ -20,10 +20,10 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
@@ -190,15 +190,32 @@
     <Folder Include="src\ASF\mega\utils\assembler\" />
     <Folder Include="src\ASF\mega\utils\preprocessor\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\lcd" />
+    <Folder Include="src\delay" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\uart.c">
+    <Compile Include="src\delay\delay.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\uart.h">
+    <Compile Include="src\delay\delay.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lcd\char_table.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lcd\lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lcd\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\usart1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\usart1.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\asf.h">
