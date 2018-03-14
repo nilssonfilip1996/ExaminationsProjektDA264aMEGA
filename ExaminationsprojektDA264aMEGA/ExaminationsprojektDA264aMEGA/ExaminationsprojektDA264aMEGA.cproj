@@ -194,7 +194,7 @@
     <Folder Include="src\delay" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="common.h">
+    <Compile Include="src\common.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\delay\delay.c">
@@ -210,6 +210,18 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\lcd\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\recievedData.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\recievedData.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\uart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\usart1.c">

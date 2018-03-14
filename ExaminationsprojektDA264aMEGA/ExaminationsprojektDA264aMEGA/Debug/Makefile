@@ -56,6 +56,8 @@ SUBDIRS :=  \
 C_SRCS +=  \
 ../src/delay/delay.c \
 ../src/lcd/lcd.c \
+../src/recievedData.c \
+../src/uart.c \
 ../src/usart1.c \
 ../src/ASF/mega/boards/stk600/rcx_x/init.c \
 ../src/main.c
@@ -70,6 +72,8 @@ ASM_SRCS +=
 OBJS +=  \
 src/delay/delay.o \
 src/lcd/lcd.o \
+src/recievedData.o \
+src/uart.o \
 src/usart1.o \
 src/ASF/mega/boards/stk600/rcx_x/init.o \
 src/main.o
@@ -77,6 +81,8 @@ src/main.o
 OBJS_AS_ARGS +=  \
 src/delay/delay.o \
 src/lcd/lcd.o \
+src/recievedData.o \
+src/uart.o \
 src/usart1.o \
 src/ASF/mega/boards/stk600/rcx_x/init.o \
 src/main.o
@@ -84,6 +90,8 @@ src/main.o
 C_DEPS +=  \
 src/delay/delay.d \
 src/lcd/lcd.d \
+src/recievedData.d \
+src/uart.d \
 src/usart1.d \
 src/ASF/mega/boards/stk600/rcx_x/init.d \
 src/main.d
@@ -91,6 +99,8 @@ src/main.d
 C_DEPS_AS_ARGS +=  \
 src/delay/delay.d \
 src/lcd/lcd.d \
+src/recievedData.d \
+src/uart.d \
 src/usart1.d \
 src/ASF/mega/boards/stk600/rcx_x/init.d \
 src/main.d
@@ -109,6 +119,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

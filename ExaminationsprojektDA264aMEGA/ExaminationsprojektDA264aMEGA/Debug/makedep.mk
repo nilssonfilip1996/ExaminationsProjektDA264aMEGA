@@ -6,6 +6,10 @@ src\delay\delay.c
 
 src\lcd\lcd.c
 
+src\recievedData.c
+
+src\uart.c
+
 src\usart1.c
 
 src\ASF\mega\boards\stk600\rcx_x\init.c

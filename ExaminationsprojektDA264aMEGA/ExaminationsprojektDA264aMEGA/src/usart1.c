@@ -11,11 +11,14 @@
 #include <stdio.h>
 #include "../common.h"
 #include "usart1.h"
+#include "recievedData.h"
 #include "../lcd/lcd.h"
 #include <avr/interrupt.h>
+#include "../delay/delay.h"
+#include "uart.h"
 
 #define MYUBRR  (unsigned int)(F_CPU/16/BAUD-1)
-#define RADDR 0x55
+#define RADDR 0x05		//0x55
 
 volatile uint8_t lastchar = 0;
 
@@ -40,7 +43,6 @@ void usart1_init(void)
 	UCSR1B |= (1<<RXCIE1);
 	/* Set frame format: Async, No parity, 1 stop bit, 8 data */
 	UCSR1C = (3<<UCSZ01);
-
 	/* Re-rout stdout (printf) to use internal uart_putchar */
 	stdout = &mystdout;
 }
@@ -66,27 +68,39 @@ ISR(USART1_RX_vect)
 		lastchar=0;
 	}
 	//define variables
-	uint8_t raddress, data, chk;//transmitter address
+	uint8_t raddress, rdata, chk, addr, data;//transmitter address
 	//receive destination address
+	//uint8_t syncro = usart1_getChar();
 	raddress=usart1_getChar();
-	//receive data
-	data=usart1_getChar();
+
 	
-	//chk=uart0_getChar();
-	//compare received checksum with calculated
-	//if(chk==(raddress+data)){//if match perform operations
-
-		//if transmitter address match
-		if(raddress==RADDR)
-		{
-			if (data==0x00)		//end of received message.
-			{
-				lastchar = 1;
-			}
-			else{
-			lcd_write(CHR,data);
-			}
+	//receive data
+	rdata=usart1_getChar();
+	
+	uint8_t byteArrayAddr[8] = {0};
+	uint8_t byteArrayData[8] = {0};
+	for(uint8_t i=0; i<8; i++){
+		if((raddress & (1<<i)) !=0){
+			byteArrayAddr[i] = 1;
 		}
+	}
+	addr = recievedData(byteArrayAddr);
+	for(uint8_t i=0; i<8; i++){
+		if((rdata & (1<<i)) !=0){
+			byteArrayData[i] = 1;
+		}
+	}
 
-	//}
+	data = recievedData(byteArrayData);
+	if(addr==RADDR)
+	{
+		if (rdata==0x20)		//end of received message.
+		{
+			lastchar = 1;
+		}
+		else{
+			data = data + 0x30;
+			lcd_write(CHR,data);
+		}
+	}
 }
