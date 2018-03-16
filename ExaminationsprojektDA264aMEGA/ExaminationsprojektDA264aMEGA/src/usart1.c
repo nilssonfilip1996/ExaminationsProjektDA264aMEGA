@@ -1,10 +1,11 @@
 /*
-* File name: uart.c
+* File name: usart1.c
 *
-* Description: A rudimentary UART driver for the ATMega 2560 chip
+* Description: A rudimentary USART1 driver for the ATMega 2560 chip
+* 
 *
 * Created: 2016-04-05
-* Author: alex.rodzevski@gmail.com
+* Author: alex.rodzevski@gmail.com and Filip Nilsson.
 */
 
 #include <avr/io.h>
@@ -63,17 +64,14 @@ char usart1_getChar(void){
 
 ISR(USART1_RX_vect)
 {
-	if(lastchar){		//Clear the screen when a we have a new string incomming.
+	if(lastchar){		//Clear the screen when a we have a new string incoming.
 		lcd_clear();
 		lastchar=0;
 	}
 	//define variables
-	uint8_t raddress, rdata, chk, addr, data;//transmitter address
+	uint8_t raddress, rdata, addr, data;//transmitter address
 	//receive destination address
-	//uint8_t syncro = usart1_getChar();
 	raddress=usart1_getChar();
-
-	
 	//receive data
 	rdata=usart1_getChar();
 	
@@ -84,22 +82,22 @@ ISR(USART1_RX_vect)
 			byteArrayAddr[i] = 1;
 		}
 	}
-	addr = recievedData(byteArrayAddr);
+	addr = recievedData(byteArrayAddr);	//Hamming 
+	
 	for(uint8_t i=0; i<8; i++){
 		if((rdata & (1<<i)) !=0){
 			byteArrayData[i] = 1;
 		}
 	}
-
-	data = recievedData(byteArrayData);
-	if(addr==RADDR)
+	data = recievedData(byteArrayData);	//Hamming
+	if(addr==RADDR)				//Is the received data meant for us?
 	{
-		if (rdata==0x20)		//end of received message.
+		if (rdata==0x01)		//end of received message. Clear the display on next received character.
 		{
 			lastchar = 1;
 		}
 		else{
-			data = data + 0x30;
+			data = data + 0x30;	//Conver to ascii.
 			lcd_write(CHR,data);
 		}
 	}

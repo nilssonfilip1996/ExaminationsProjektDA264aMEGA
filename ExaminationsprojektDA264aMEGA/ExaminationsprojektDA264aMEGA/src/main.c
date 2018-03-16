@@ -1,5 +1,11 @@
 /**
-* Author(s): Filip And Jesper
+* Main-file of Mega implementation.
+* An interrupt is triggered when a byte is received on the USART1.
+* The byte is then fed to the Hamming-decoder to decipher the original message
+* Finally, the message is displayed on the lcd-shield.
+*
+*
+* Author(s): Filip Nilsson And Jesper Anderberg
 * USART1
 */
 #include <asf.h>
@@ -13,9 +19,7 @@
 char rec;
 
 int main (void)
-{
-	/* Insert system clock initialization code here (sysclk_init()). */
-	
+{	
 	board_init();
 	sei();
 	usart1_init();
@@ -26,10 +30,5 @@ int main (void)
 	
 	while(1){
 		// do nothing
-		// 		char str[20];
-		// 		int counter = 10;
-		// 		sprintf(str, "Value: %d\n", counter);
-		// 		uart_write_str(str);
-		// 		delay_ms(200);
 	}
 }

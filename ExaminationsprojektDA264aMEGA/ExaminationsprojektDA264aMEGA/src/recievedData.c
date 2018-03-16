@@ -1,3 +1,9 @@
+/*
+* Hamming decoder.
+*
+* Author Jesper Anderberg
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "recievedData.h"

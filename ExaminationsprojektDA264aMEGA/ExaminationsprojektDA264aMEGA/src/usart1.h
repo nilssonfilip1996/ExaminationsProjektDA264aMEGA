@@ -1,10 +1,10 @@
 /*
- * File name: uart.h
+ * File name: usart1.h
  *
  * Description: Header file for the driver implemented in uart.c
  *
  * Created: 2016-04-05
- * Author: alex.rodzevski@gmail.com
+ * Author: alex.rodzevski@gmail.com and Filip Nilsson
  */ 
 
 #ifndef UART_H_

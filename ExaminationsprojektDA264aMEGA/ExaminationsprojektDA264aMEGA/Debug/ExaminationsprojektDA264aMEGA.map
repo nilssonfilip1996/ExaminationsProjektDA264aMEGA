@@ -768,27 +768,27 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1b8b
+.debug_info     0x00000000     0x1b80
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_info    0x00000bbc      0x1e3 src/delay/delay.o
  .debug_info    0x00000d9f      0x3e8 src/lcd/lcd.o
  .debug_info    0x00001187      0x322 src/recievedData.o
  .debug_info    0x000014a9      0x180 src/uart.o
- .debug_info    0x00001629      0x3b7 src/usart1.o
- .debug_info    0x000019e0       0x7c src/ASF/mega/boards/stk600/rcx_x/init.o
- .debug_info    0x00001a5c      0x12f src/main.o
+ .debug_info    0x00001629      0x3ac src/usart1.o
+ .debug_info    0x000019d5       0x7c src/ASF/mega/boards/stk600/rcx_x/init.o
+ .debug_info    0x00001a51      0x12f src/main.o
 
-.debug_abbrev   0x00000000     0x12b7
+.debug_abbrev   0x00000000     0x12aa
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0xb1a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_abbrev  0x00000b1a       0xdc src/delay/delay.o
  .debug_abbrev  0x00000bf6      0x159 src/lcd/lcd.o
  .debug_abbrev  0x00000d4f      0x115 src/recievedData.o
  .debug_abbrev  0x00000e64      0x122 src/uart.o
- .debug_abbrev  0x00000f86      0x243 src/usart1.o
- .debug_abbrev  0x000011c9       0x47 src/ASF/mega/boards/stk600/rcx_x/init.o
- .debug_abbrev  0x00001210       0xa7 src/main.o
+ .debug_abbrev  0x00000f86      0x236 src/usart1.o
+ .debug_abbrev  0x000011bc       0x47 src/ASF/mega/boards/stk600/rcx_x/init.o
+ .debug_abbrev  0x00001203       0xa7 src/main.o
 
 .debug_line     0x00000000     0x1b6c
  *(.debug_line .debug_line.* .debug_line_end)

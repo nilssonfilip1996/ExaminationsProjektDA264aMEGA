@@ -15,21 +15,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000160  00000000  00000000  00000a18  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001b8b  00000000  00000000  00000b78  2**0
+  6 .debug_info   00001b80  00000000  00000000  00000b78  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000012b7  00000000  00000000  00002703  2**0
+  7 .debug_abbrev 000012aa  00000000  00000000  000026f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00001b6c  00000000  00000000  000039ba  2**0
+  8 .debug_line   00001b6c  00000000  00000000  000039a2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000318  00000000  00000000  00005528  2**2
+  9 .debug_frame  00000318  00000000  00000000  00005510  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00013892  00000000  00000000  00005840  2**0
+ 10 .debug_str    00013892  00000000  00000000  00005828  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000bda  00000000  00000000  000190d2  2**0
+ 11 .debug_loc    00000bda  00000000  00000000  000190ba  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000f0  00000000  00000000  00019cac  2**0
+ 12 .debug_ranges 000000f0  00000000  00000000  00019c94  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_macro  0000512d  00000000  00000000  00019d9c  2**0
+ 13 .debug_macro  0000512d  00000000  00000000  00019d84  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1353,11 +1353,11 @@ ISR(USART1_RX_vect)
  6e4:	ba dd       	rcall	.-1164   	; 0x25a <lcd_clear>
 		lastchar=0;
  6e6:	10 92 3c 04 	sts	0x043C, r1	; 0x80043c <lastchar>
-	}
 	//define variables
-	uint8_t raddress, rdata, chk, addr, data;//transmitter address
-	//receive destination address
+	uint8_t raddress, rdata, addr, data;//transmitter address
 	//uint8_t syncro = usart1_getChar();
+	
+	//receive destination address
 	raddress=usart1_getChar();
  6ea:	d4 df       	rcall	.-88     	; 0x694 <usart1_getChar>
 
@@ -1367,7 +1367,6 @@ ISR(USART1_RX_vect)
  6ec:	08 2f       	mov	r16, r24
  6ee:	d2 df       	rcall	.-92     	; 0x694 <usart1_getChar>
  6f0:	18 2f       	mov	r17, r24
-	
 	uint8_t byteArrayAddr[8] = {0};
  6f2:	88 e0       	ldi	r24, 0x08	; 8
  6f4:	fe 01       	movw	r30, r28
@@ -1393,8 +1392,8 @@ ISR(USART1_RX_vect)
  716:	90 e0       	ldi	r25, 0x00	; 0
 			byteArrayAddr[i] = 1;
  718:	61 e0       	ldi	r22, 0x01	; 1
+	//receive data
 	rdata=usart1_getChar();
-	
 	uint8_t byteArrayAddr[8] = {0};
 	uint8_t byteArrayData[8] = {0};
 	for(uint8_t i=0; i<8; i++){
@@ -1412,9 +1411,9 @@ ISR(USART1_RX_vect)
  72c:	2f 5f       	subi	r18, 0xFF	; 255
  72e:	3f 4f       	sbci	r19, 0xFF	; 255
  730:	31 96       	adiw	r30, 0x01	; 1
+	
 	//receive data
 	rdata=usart1_getChar();
-	
 	uint8_t byteArrayAddr[8] = {0};
 	uint8_t byteArrayData[8] = {0};
 	for(uint8_t i=0; i<8; i++){
@@ -1434,16 +1433,18 @@ ISR(USART1_RX_vect)
  742:	39 96       	adiw	r30, 0x09	; 9
  744:	80 e0       	ldi	r24, 0x00	; 0
  746:	90 e0       	ldi	r25, 0x00	; 0
+	
+	//if(rdata!=0x01){
 	for(uint8_t i=0; i<8; i++){
 		if((rdata & (1<<i)) !=0){
  748:	41 2f       	mov	r20, r17
  74a:	50 e0       	ldi	r21, 0x00	; 0
 			byteArrayData[i] = 1;
  74c:	61 e0       	ldi	r22, 0x01	; 1
-			byteArrayAddr[i] = 1;
-		}
 	}
 	addr = recievedData(byteArrayAddr);
+	
+	//if(rdata!=0x01){
 	for(uint8_t i=0; i<8; i++){
 		if((rdata & (1<<i)) !=0){
  74e:	9a 01       	movw	r18, r20
@@ -1458,11 +1459,11 @@ ISR(USART1_RX_vect)
  75e:	60 83       	st	Z, r22
  760:	01 96       	adiw	r24, 0x01	; 1
  762:	31 96       	adiw	r30, 0x01	; 1
-		if((raddress & (1<<i)) !=0){
-			byteArrayAddr[i] = 1;
 		}
 	}
 	addr = recievedData(byteArrayAddr);
+	
+	//if(rdata!=0x01){
 	for(uint8_t i=0; i<8; i++){
  764:	88 30       	cpi	r24, 0x08	; 8
  766:	91 05       	cpc	r25, r1
@@ -1470,18 +1471,18 @@ ISR(USART1_RX_vect)
 			byteArrayData[i] = 1;
 		}
 	}
-
 	data = recievedData(byteArrayData);
  768:	91 f7       	brne	.-28     	; 0x74e <__vector_36+0xaa>
  76a:	ce 01       	movw	r24, r28
  76c:	09 96       	adiw	r24, 0x09	; 9
  76e:	d9 dd       	rcall	.-1102   	; 0x322 <recievedData>
+	//}
 	if(addr==RADDR)
  770:	05 30       	cpi	r16, 0x05	; 5
  772:	51 f4       	brne	.+20     	; 0x788 <__vector_36+0xe4>
 	{
-		if (rdata==0x20)		//end of received message.
- 774:	10 32       	cpi	r17, 0x20	; 32
+		if (rdata==0x01)		//end of received message.
+ 774:	11 30       	cpi	r17, 0x01	; 1
  776:	21 f4       	brne	.+8      	; 0x780 <__vector_36+0xdc>
 		{
 			lastchar = 1;

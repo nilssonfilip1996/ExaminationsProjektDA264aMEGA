@@ -4,7 +4,7 @@
  * 	After some testing, the UART should not be sending quicker than 40 ms.
  *
  * 	Created: 2017-01-04 14:42:40
- *  Author: Philip Ekholm, Aron Polner ASK ME ALL THE QUESTIONS
+ *  Author: Philip Ekholm, Aron Polner 
  */
 
 #include <stdint.h>
